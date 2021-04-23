@@ -2,10 +2,10 @@
     "validating": 1209600,
     "algorithm": "HS256",
     "users": {
-        "我爱骑行": 1,
-        "Chasing Cars": 2,
-        "999026": 3,
-        "杨娜123456": 4
+        "我爱骑行": "slj",
+        "Chasing Cars": "gqq",
+        "999026": "lrx",
+        "杨娜123456": "yn"
     },
     "location": {
         "x": 108.953,

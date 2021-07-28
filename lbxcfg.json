@@ -2,15 +2,11 @@
     "validating": 1209600,
     "algorithm": "HS256",
     "users": {
-        "我爱骑行": "slj",
-        "Chasing Cars": "gqq",
-        "999026": "lrx",
-        "杨娜123456": "yn",
-        "我是媛宝": "ly"
+        "我爱骑行": "slj"
     },
     "location": {
         "x": 108.953,
         "y": 34.276,
-        "offset": 0.001
+        "offset": 0.000001
     }
 }

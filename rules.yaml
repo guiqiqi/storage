@@ -275,6 +275,20 @@ rules:
 - DOMAIN-KEYWORD,bbc,Proxy
 - DOMAIN-SUFFIX,instagram.com,Proxy
 
+# OpenAI
+- DOMAIN-SUFFIX,vimeocdn.com,Proxy
+- DOMAIN-SUFFIX,hcaptcha.com,Proxy
+- DOMAIN-SUFFIX,akamaized.net,Proxy
+- DOMAIN-SUFFIX,googleapis.com,Proxy
+- DOMAIN-SUFFIX,gstatic.com,Proxy
+- DOMAIN-SUFFIX,openai.com,Proxy
+- DOMAIN-SUFFIX,vimeo.com,Proxy
+- DOMAIN-SUFFIX,googletagmanager.com,Proxy
+- DOMAIN-SUFFIX,f7tk.com,Proxy
+- DOMAIN-SUFFIX,doubleclick.net,Proxy
+- DOMAIN-SUFFIX,google-analytics.com,Proxy
+- DOMAIN-SUFFIX,ai.com,Proxy
+
 # 局域网
 - IP-CIDR,192.168.0.0/16,DIRECT
 - IP-CIDR,10.0.0.0/8,DIRECT

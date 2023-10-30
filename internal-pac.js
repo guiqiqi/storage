@@ -1,6 +1,6 @@
 var Direct = "DIRECT";
 var SocksProxy = "SOCKS5 192.168.7.1:8080";
-var Domains = [
+var domains = [
     "whatismyipaddress.com",
     "bard.google.com",
     "*.openai.com",
@@ -12,7 +12,7 @@ var Domains = [
 
 function FindProxyForURL(url, host) {
     for (var index = domains.length - 1; i >= 0; i--) {
-        if (dshExpMatch(host, Domains[i]))
+        if (shExpMatch(host, domains[i]))
             return SocksProxy;
     }
     return Direct;

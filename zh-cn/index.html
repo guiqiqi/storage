@@ -1,549 +1,203 @@
-<html><head>
-<title>CV</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css">
-<style type="text/css">
-		body {
-			background: #f0f0f0;
-			margin: 0;
-			padding: 0;
-			
-			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-			line-height: 20px;
-			font-size: 13px;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桂琦琦 - 运维开发工程师</title>
+    <style>
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        h3 {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        p, li {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .contact, .languages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 10px;
+        }
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 5px;
+            padding: 5px 0;
+        }
+        .skill-item {
+            display: inline-block;
+            background-color: #e8ecef;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .education-highlight {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        a {
+            color: #2c3e50;
+            text-decoration: underline;
+        }
+        strong {
+            font-weight: bold;
+        }
 
-			color: #222;
-		}
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            h3 {
+                font-size: 1.1em;
+            }
+            .contact, .skills, .languages {
+                grid-template-columns: 1fr;
+            }
+        }
 
-		h1, h2, h3, h4 {
-			font-family: 'Oswald', Impact, Helvetica, Arial, sans-serif;
-			font-weight: normal;
-			margin: 0 0 15px 0;
-			padding: 0;
-		}
-		h1 {
-			font-size: 300%;
-		}
-		h2 {
-			font-size: 210%;
-		}
-		h3 {
-			font-size: 130%;
-		}
-		
-		p {
-			margin: 0 0 10px 0;
-		}
-		
-		ul {
-			margin: 0;
-			list-style-type: square;
-		}
-		a {
-			color: #222;
-		}
-		/* ________________________________________________________ */
-		.rtl {
-			direction: rtl;
-		}
-		.clear {
-			clear: both;
-		}
+        /* 打印样式 */
+        @media print {
+            body {
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+            h1 {
+                border-bottom: 1px solid #000;
+            }
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+            .skill-item {
+                background-color: #fff;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>桂琦琦 - 运维开发工程师</h1>
 
-		#main {
-			background: #fff;
-			width: 900px;
-			padding: 35px;
-			margin: 0 auto 15px auto;
-			overflow: hidden;
-			
-			box-shadow: 0 0 6px #ccc;
-		}
+        <div class="section">
+            <h2>联系方式</h2>
+            <div class="contact">
+                <p>Email: <a href="mailto:guiqiqi187@gmail.com">guiqiqi187@gmail.com</a></p>
+                <p>联系电话: +7(963)-349-62-73 / +8613008548898</p>
+                <p>个人博客: <a href="https://init.blog">https://init.blog</a></p>
+            </div>
+        </div>
 
-		#title {
-			line-height: 42px;
-			border-bottom: 3px solid #000;
-			padding-bottom: 30px;
-			margin: 0px 0 30px 0;
-		}
-		
-		#credit {
-			margin-bottom: 20px;
-			font-size: 11px;
-			color: #999;
-			text-align: center;
-		}
-			#credit a {
-				color: #999;
-			}
-		
-		p label {
-			font-family: 'Oswald', Helvetica, Arial, serif;
-			
-			font-size: 110%;
-			margin-right: 10px;
-		}
-			p label span.colon {
-				display: inline;
-			}
+        <div class="section">
+            <h2>技术栈</h2>
+            <div class="skills">
+                <span class="skill-item">Python</span>
+                <span class="skill-item">C/C++</span>
+                <span class="skill-item">Docker</span>
+                <span class="skill-item">Linux 操作系统</span>
+                <span class="skill-item">Socket 网络</span>
+                <span class="skill-item">MySQL</span>
+                <span class="skill-item">STM32</span>
+            </div>
+        </div>
 
-		
-		.section {
-			margin-bottom: 40px;
-		}
-		.section .set {
-		}
-		.item {
-			margin: 0 0 20px 0;
-		}
+        <div class="section">
+            <h2>教育经历</h2>
+            <h3>1. <span class="education-highlight">2019.09 - 2025.07</span> <span class="education-highlight">圣彼得堡国立理工大学</span> <span class="education-highlight">本科</span></h3>
+            <ul>
+                <li>计算机科学院 - 应用数学与计算机科学</li>
+            </ul>
+        </div>
 
-		/*  _____________________________ */
-		.section .title {
-			text-transform: uppercase;
-			font-size: 170%;
+        <div class="section">
+            <h2>实习经历</h2>
+            <h3>1. 2018.11 - 2020.09 在哪充 服务端开发工程师</h3>
+            <ul>
+                <li>通过使用Python + Flask框架、开发 RESTful 风格的 API；采用无状态设计，确保系统的高可用性和易扩展性。</li>
+                <li>使用 C++ 编写一个高性能的多链接 Socket 服务端，能够处理大量并发连接，保证系统在高负载下的稳定性与流畅性。通过使用异步 IO 和线程池技术，实现并发请求的高效处理。</li>
+                <li>在团队内推动 Docker 容器化的实践，实现基于 Docker Compose 的 IaC，解决了环境一致性问题，缩短了部署周期。</li>
+                <li>在团队内实现了基于 GitHub Actions 的 CI/CD 流水线，实现自动化代码构建、测试流程。</li>
+                <li>在项目开发过程中，独立编写了一套微信公众号服务端框架（<a href="https://github.com/guiqiqi/leaf">guiqiqi/leaf</a>），并成功将部分核心业务逻辑迁移至该框架中，提升了业务开发的效率与维护性。</li>
+                <li>尽管最终团队未能实现商业化成功，但这段实习经历让我深入理解了后端系统的架构设计、性能优化与高并发处理，也锻炼了我在技术决策、团队合作和快速迭代中的能力。</li>
+            </ul>
+            <h3>2. 2019.11 - 2020.09 老百姓大药房 客服专员</h3>
+            <ul>
+                <li>这是因为疫情期间在国内没有办法继续学业而选择的临时实习岗位。虽然工作内容与技术无关，但在此过程中，锻炼了一些软技能。</li>
+                <li>在团队内负责处理客户投诉，与客户高效沟通并解决问题。在疫情初期，面对突发情况，快速与团队协作并应变，协助药店维持客流秩序。</li>
+            </ul>
+        </div>
 
-			padding: 10px 10px;
-			margin: 0 auto 15px auto;
+        <div class="section">
+            <h2>语言能力</h2>
+            <div class="languages">
+                <p>英语：CET-4</p>
+                <p>俄语：ТРКИ-B1</p>
+            </div>
+        </div>
 
-			display: inline-block;
-			background: #000;
-			color: #fff;
-		}
-			.section .set h3 {
-				margin: 0;
-			}
+        <div class="section">
+            <h2>个人项目</h2>
+            <ul>
+                <li><strong><a href="https://github.com/guiqiqi/leaf">leaf</a></strong>: 基于 Flask 框架的 CMS 系统，提供微信支付支持、以及开箱即用的微信公众平台 API 支持。</li>
+                <li><strong><a href="https://github.com/flask-plugin">flask-plugin</a></strong>: 为 Flask 2.x 框架提供即插即用的插件功能，实现了插件的定义、热插拨、自动发现功能；通过对 Flask 进行扩展，实现了插件内模板渲染、URL 构造、消息闪现、信号等功能的全面支持。</li>
+                <li><strong><a href="https://github.com/guiqiqi/chromate">chromate</a></strong>: 使用 EJS 与 JavaScript/TypeScript 编写的基于 Bulma CSS 的 Hexo 博客主题，提供基于 Shiwaka 组件的播客系统支持。</li>
+                <li><strong><a href="https://github.com/flaskcwg/flask-docs-zh">flask-docs-zh</a></strong>: 协助 Flask 项目组进行的文档翻译工作。</li>
+            </ul>
+        </div>
 
-
-
-		.basic-info {
-			border-top: 0;
-		}
-		.section.basic-info .title {
-			float: left;
-			border: 0;
-		}
-		.basic-info .set {
-			float: right;
-			width: 70%;
-		}
-		.basic-info .address {
-			width: 40%;
-			float: left;
-		}
-		.basic-info .r {
-			float: right;
-			width: 60%;
-			text-align: right;
-		}
-			.basic-info label {
-				font-family: 'Oswald', Helvetica, Arial, serif;
-			}
-			.basic-info label, .basic-info span  {
-				display: inline !important;
-			}
-		.basic-info p {
-			margin: 0;
-		}
-		
-		.section span.value {
-			display: block;
-		}
-		.section h3 span.l, .section span.r {
-			width: 49%;
-			float: left;
-		}
-			.section span.r {
-				float: right;
-				text-align: right;
-			}
-			.section-education .school,
-			.section-work .job_title {
-				font-size: 100%;
-				display: block;
-				margin: 5px 0 5px 0;
-			}
-
-
-		#photo {
-			width: 160px;
-			height: 200px;
-			overflow: hidden;
-			float: left;
-			margin-top: 4px;
-			border-radius: 4px;
-		}
-		#photo img {
-			width: 100%;
-			height: auto;
-		}
-		.header.photo {
-			margin-left: 190px;
-		}
-		.header.photo #title {
-			text-align: left;
-		}
-		.header.photo .basic-info {
-			float: none;
-			padding: 0;
-		}
-
-
-		@media screen and (max-width: 950px) {
-			body {
-				background: #fff;
-			}
-			#main {
-				box-shadow: none;
-				padding: 0;
-				padding: 5px;
-			}
-		}
-	</style>
-<style data-id="immersive-translate-input-injected-css">.immersive-translate-input {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 2147483647;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.immersive-translate-input-loading {
-  --loading-color: #f78fb6;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  display: block;
-  margin: 12px auto;
-  position: relative;
-  color: white;
-  left: -100px;
-  box-sizing: border-box;
-  animation: immersiveTranslateShadowRolling 1.5s linear infinite;
-}
-
-@keyframes immersiveTranslateShadowRolling {
-  0% {
-    box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-  }
-
-  12% {
-    box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-  }
-
-  25% {
-    box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
-  }
-
-  36% {
-    box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
-  }
-
-  50% {
-    box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color), 100px 0 var(--loading-color);
-  }
-
-  62% {
-    box-shadow: 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color), 110px 0 var(--loading-color);
-  }
-
-  75% {
-    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color), 120px 0 var(--loading-color);
-  }
-
-  87% {
-    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color);
-  }
-
-  100% {
-    box-shadow: 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0);
-  }
-}
-
-
-.immersive-translate-search-recomend {
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  position: relative;
-  font-size: 16px;
-}
-.immersive-translate-search-enhancement-en-title {
-  color: #4d5156;
-}
-/* dark */
-@media (prefers-color-scheme: dark) {
-  .immersive-translate-search-recomend {
-    border: 1px solid #3c4043;
-  }
-  .immersive-translate-close-action svg {
-    fill: #bdc1c6;
-  }
-
-.immersive-translate-search-enhancement-en-title {
-  color: #bdc1c6;
-}
-}
-
-
-.immersive-translate-search-settings {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  cursor: pointer;
-}
-
-.immersive-translate-search-recomend::before {
-  /* content: " "; */
-  /* width: 20px; */
-  /* height: 20px; */
-  /* top: 16px; */
-  /* position: absolute; */
-  /* background: center / contain url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAxlBMVEUAAADpTInqTIjpSofnSIfqS4nfS4XqS4nqTIjsTYnrTInqTIroS4jvQIDqTIn////+/v7rSYjpTIn8/v7uaZzrTIr9/f3wfansWJL88/b85e73qc39+/v3xNnylrvrVI/98fb62Obva5/8+fr76vH4y9zpSIj74e353Oj1ocTzm77xhK/veKbtYpjsXJTqU47oTInxjrXyh7L99fj40eH2ttH1udD3sc31ssz1rMnykLXucqPtbqD85e/1xdn2u9DzqcXrUY6FaJb8AAAADnRSTlMA34BgIM8Q37/fz7+/EGOHcVQAAAGhSURBVDjLhZPncuowEEZFTW7bXVU7xsYYTO/p7bb3f6lICIOYJOT4h7/VnFmvrBFjrF3/CR/SajBHswafctG0Qg3O8O0Xa8BZ6uw7eLjqr30SofCDVSkemMinfL1ecy20r5ygR5zz3ArcAqJExPTPKhDENEmS30Q9+yo4lEQkqVTiIEAHCT10xWERRdH0Bq0aCOPZNDV3s0xaYce1lHEoDHU8wEh3qRJypNcTAeKUIjgKMeGLDoRCLVLTVf+Ownj8Kk6H9HM6QXPgYjQSB0F00EJEu10ILQrs/QeP77BSSr0MzLOyuJJQbnUoOOIUI/A8EeJk9E4YUHUWiRyTVKGgQUB8/3e/NpdGlfI+FMQyWsCBWyz4A/ZyHXyiiz0Ne5aGZssoxRmcChw8/EFKQ5JwwkUo3FRT5yXS7q+Y/rHDZmFktzpGMvO+5QofA4FPpEmGw+EWRCFvnaof7Zhe8NuYSLR0xErKLThUSs8gnODh87ssy6438yzbLzxl012HS19vfCf3CNhnbWOL1eEsDda+gDPUvri8tSZzNFrwIZf1NmNvqC1I/t8j7nYAAAAASUVORK5CYII='); */
-}
-
-.immersive-translate-search-title {}
-
-.immersive-translate-search-title-wrapper {}
-
-.immersive-translate-search-time {
-  font-size: 12px;
-  margin: 4px 0 24px;
-  color: #70757a;
-}
-
-.immersive-translate-expand-items {
-  display: none;
-}
-
-.immersive-translate-search-more {
-  margin-top: 16px;
-  font-size: 14px;
-}
-
-.immersive-translate-modal {
-  display: none;
-  position: fixed;
-  z-index: 1000000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-  font-size:15px;
-}
-
-.immersive-translate-modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
-    "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.immersive-translate-modal-title {
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: hsl(205, 20%, 32%);
-}
-
-.immersive-translate-modal-body {
-  color: hsl(205, 20%, 32%)
-}
-
-.immersive-translate-close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.immersive-translate-close:hover,
-.immersive-translate-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.immersive-translate-modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.immersive-translate-btn {
-  color: #fff;
-  background-color: #ea4c89;
-  border: none;
-  font-size: 14px;
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.immersive-translate-cancel-btn {
-  /* gray color */
-  background-color: rgb(89, 107, 120);
-}
-
-.immersive-translate-btn:hover {
-  background-color: #f082ac;
-}
-
-.immersive-translate-cancel-btn:hover {
-  background-color: hsl(205, 20%, 32%);
-}
-
-
-.immersive-translate-btn svg {
-  margin-right: 5px;
-}
-
-.immersive-translate-link {
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-drag: none;
-  text-decoration: none;
-  color: #007bff;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
-}
-
-.immersive-translate-primary-link {
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-drag: none;
-  text-decoration: none;
-  color: #ea4c89;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, .1);
-}
-
-.immersive-translate-modal input[type="radio"] {
-  margin: 0 6px;
-  cursor: pointer;
-}
-
-.immersive-translate-modal label {
-  cursor: pointer;
-}
-
-.immersive-translate-close-action {
-  position: absolute;
-  top: 2px;
-  right: 0px;
-  cursor: pointer;
-}
-</style></head>
-<body class="lang- ">
-<div id="main">
-<h1 id="title">桂琦琦</h1>
-<div class="basic-info section">
-<h2 class="title">联系方式</h2>
-<div class="set">
-<div class="r">
-<p class="email"><label>E-mail<span class="colon">:</span></label> <span class="value"><a>guiqiqi187@gmail.com</a></span></p>
-<p class="website"><label>个人网站<span class="colon">:</span></label> <span class="value"><a href="https://init.blog" rel="nofollow">https://init.blog</a></span></p>
-<p class="phone"><label>联系电话<span class="colon">:</span></label> <span class="value">+7(963)-349-62-73</span></p>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="section section-education">
-<h2 class="title">教育经历</h2>
-<div class="set">
-<div class="item">
-<h3><span class="course l">西北农林科技大学</span>
-<span class="date r">2016 — 2018</span>
-</h3>
-<div class="clear"> </div>
-<span class="school">草业科学</span><span class="clear"> </span>
-</div>
-<div class="item">
-<h3><span class="course l">圣彼得堡彼得大帝理工大学</span>
-<span class="date r">2019 — 2025</span>
-</h3>
-<div class="clear"> </div>
-<span class="school">应用数学与计算机科学</span><span class="clear"> </span>
-</div>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="section section-interests">
-<h2 class="title">语言能力</h2>
-<div class="set">
-<div class="item">
-<span class="info"><span style="font-weight:bold;">编程语言</span><div><ul><li><span>Python：高级</span></li><li><span>C/C++：中级</span></li><li><span>JavaScript：入门</span></li><li><span>Haskell：入门</span></li></ul><div><span style="font-weight:bold;">自然语言</span></div></div><div><ul><li><span>英语：CET-4</span></li><li><span>俄语：ТРКИ-B1</span></li></ul></div><div><span><br></span></div></span>
-</div>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="section section-work">
-<h2 class="title">实习经历</h2>
-<div class="set">
-<div class="item">
-<h3><span class="company l">甘肃华比商贸有限公司</span>
-<span class="date r">2019.12 — 2020.09</span>
-</h3>
-<div class="clear"> </div>
-<span class="job_title">软件工程师</span><div class="info"><div>一个共享充电宝初创团队</div><div><br></div><div>1. 协助进行项目整体架构设计</div><div>2. Python 后端编程</div><div>3. C++ Socket 服务器架构设计与代码编写</div><div>4. 简单前端网页设计</div></div><div class="clear"> </div>
-</div>
-</div>
-<div class="clear"> </div>
-<div class="set">
-<div class="item">
-<h3><span class="company l">老百姓大药房</span>
-<span class="date r">2020.11 — 2021.09</span>
-</h3>
-<div class="clear"> </div>
-<span class="job_title">客服专员</span><div class="info"><div>1. 处理客诉</div><div>2. 药品导购</div><div>3. 协助企业在新冠疫情初期维持客流秩序</div></div><div class="clear"> </div>
-</div>
-</div></div>
-<div class="section section-1663784479203">
-<h2 class="title">个人项目</h2>
-<div class="set">
-<div class="item">
-<span class="info"><h3><span>leaf</span></h3><div><ul><li>基于 Flask 框架的 CMS 系统，提供微信支付支持，包含开箱即用的微信公众平台 API 支持。</li><li>https://github.com/guiqiqi/leaf</li></ul></div><h3>flask-docs-zh</h3><div><ul><li>协助翻译 Flask 项目文档的中文版本。</li><li>https://github.com/flaskcwg/flask-docs-zh</li></ul></div><h3>chromate</h3><div><ul><li>使用 EJS 与 JavaScript 编写的 Hexo 博客主题，提供博客系统支持。</li><li>https://github.com/guiqiqi/chromate</li></ul><h3>flask-plugin</h3></div><div><ul><li><span>一个用于支持插件热插拔的 Flask 扩展，并提供一个可用的在线插件市场系统。</span></li><li><span>使用 GitHub Actions 的 CI 工具验证用户提交的插件并控制代码质量</span></li><li><span>https://github.com/flask-plugin</span></li></ul></div></span>
-</div>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="section section-references">
-<h2 class="title">个人兴趣</h2>
-<div class="set">
-<div class="item">
-<span class="info">对音乐、计算机编程、长跑感兴趣。</span>
-</div>
-</div>
-<div class="clear"> </div>
-</div>
-<div class="section section-qualifications">
-<h2 class="title">其他经历</h2>
-<div class="set">
-<div class="item">
-<span class="info">在新冠疫情初期协助所在药店维持客流秩序。<div><div>参加了2021年西安马拉松。</div></div></span>
-</div>
-</div>
-<div class="clear"> </div>
-</div>
-</div>
-
-
-</body></html>
+        <div class="section">
+            <h2>兴趣爱好</h2>
+            <p>对音乐、计算机编程、长跑感兴趣。参加了2021年西安国际马拉松。</p>
+        </div>
+    </div>
+</body>
+</html>

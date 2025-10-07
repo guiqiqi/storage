@@ -1,301 +1,421 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>密码安全检查器</title>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            @tailwind base;
+            @tailwind components;
+            @tailwind utilities;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>密码安全检查器</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @tailwind base;
-        @tailwind components;
-        @tailwind utilities;
+            /* Fade transition for Vue */
+            .fade-enter-active,
+            .fade-leave-active {
+                transition: opacity 0.3s ease;
+            }
 
-        /* Fade transition for Vue */
-        .fade-enter-active,
-        .fade-leave-active {
-            transition: opacity 0.3s ease;
-        }
+            .fade-enter-from,
+            .fade-leave-to {
+                opacity: 0;
+            }
+        </style>
+    </head>
 
-        .fade-enter-from,
-        .fade-leave-to {
-            opacity: 0;
-        }
-    </style>
-
-</head>
-
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300">
-
-    <div id="app" class="container mx-auto p-4 sm:p-6 md:p-8 max-w-2xl">
-
-        <header class="flex justify-between items-center mb-6">
-            <div class="flex items-center gap-3">
-                <img src="img/logo.svg" alt="Logo" class="w-8 h-8">
-                <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{{ texts.title[lang] }}</h1>
-            </div>
-            <div class="relative">
-                <button @click="toggleLangMenu"
-                    class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform transform hover:scale-110">
-                    <span class="text-2xl">🌐</span>
-                </button>
-                <transition name="fade">
-                    <div v-if="langMenuOpen"
-                        class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 z-10">
-                        <a @click="changeLang('zh')"
-                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href="#">🇨🇳 中文</a>
-                        <a @click="changeLang('en')"
-                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href="#">🇺🇸 English</a>
-                        <a @click="changeLang('ru')"
-                            class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            href="#">🇷🇺 Русский</a>
-                    </div>
-                </transition>
-            </div>
-        </header>
-
-        <main>
-            <div class="bg-blue-50 dark:bg-gray-800 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300 p-4 rounded-md mb-6 shadow-sm"
-                role="alert">
-                <p class="font-bold mb-2">{{ texts.importantNotes[lang] }}</p>
-                <ul class="list-disc list-inside space-y-1">
-                    <li v-for="tip in dynamicTips" :key="tip.id">{{ tip.text[lang] }}</li>
-                </ul>
-            </div>
-
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                <div class="relative mb-4">
-                    <input :type="showPassword ? 'text' : 'password'" v-model="password" @input="checkPassword"
-                        :placeholder="texts.placeholder[lang]"
-                        class="w-full p-3 pr-12 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                    <button @click="togglePasswordVisibility"
-                        class="absolute inset-y-0 right-0 px-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
-                        {{ showPassword ? '🙈' : '👁️' }}
+    <body
+        class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 font-sans transition-colors duration-300"
+    >
+        <div id="app" class="container mx-auto p-4 sm:p-6 md:p-8 max-w-2xl">
+            <header class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                    <h1
+                        class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white"
+                    >
+                        {{ texts.title[lang] }}
+                    </h1>
+                </div>
+                <div class="relative">
+                    <button
+                        @click="toggleLangMenu"
+                        class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-transform transform hover:scale-110"
+                    >
+                        <span class="text-2xl">🌐</span>
                     </button>
+                    <transition name="fade">
+                        <div
+                            v-if="langMenuOpen"
+                            class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-lg shadow-xl py-1 z-10"
+                        >
+                            <a
+                                @click="changeLang('zh')"
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                href="#"
+                                >🇨🇳 中文</a
+                            >
+                            <a
+                                @click="changeLang('en')"
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                href="#"
+                                >🇺🇸 English</a
+                            >
+                            <a
+                                @click="changeLang('ru')"
+                                class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                href="#"
+                                >🇷🇺 Русский</a
+                            >
+                        </div>
+                    </transition>
+                </div>
+            </header>
+
+            <main>
+                <div
+                    class="bg-blue-50 dark:bg-gray-800 border-l-4 border-blue-500 text-blue-700 dark:text-blue-300 p-4 rounded-md mb-6 shadow-sm"
+                    role="alert"
+                >
+                    <p class="font-bold mb-2">
+                        {{ texts.importantNotes[lang] }}
+                    </p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li v-for="tip in dynamicTips" :key="tip.id">
+                            {{ tip.text[lang] }}
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-3 mb-6">
-                    <button @click="validatePassword"
-                        class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transition-transform transform hover:scale-105">
-                        {{ texts.checkButton[lang] }}
-                    </button>
-                    <button @click="generatePassword"
-                        class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-900 transition-transform transform hover:scale-105">
-                        {{ texts.generateButton[lang] }}
-                    </button>
-                </div>
-
-                <transition name="fade">
-                    <div v-if="feedback.show"
-                        :class="feedback.type === 'success' ? 'bg-green-100 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200' : 'bg-red-100 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200'"
-                        class="border-l-4 p-4 rounded-md">
-                        <p class="font-bold mb-2">{{ feedback.title }}</p>
-                        <ul class="list-disc list-inside space-y-1">
-                            <li v-for="message in feedback.messages">{{ message }}</li>
-                        </ul>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="relative mb-4">
+                        <input
+                            :type="showPassword ? 'text' : 'password'"
+                            v-model="password"
+                            @input="checkPassword"
+                            :placeholder="texts.placeholder[lang]"
+                            class="w-full p-3 pr-12 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                        />
+                        <button
+                            @click="togglePasswordVisibility"
+                            class="absolute inset-y-0 right-0 px-4 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                        >
+                            {{ showPassword ? '🙈' : '👁️' }}
+                        </button>
                     </div>
-                </transition>
-            </div>
-        </main>
 
-        <footer class="text-center text-sm text-gray-500 dark:text-gray-400 mt-8">
-            <p>Check if your password could be used in MiOffice.</p>
-        </footer>
-    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                        <button
+                            @click="validatePassword"
+                            class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 transition-transform transform hover:scale-105"
+                        >
+                            {{ texts.checkButton[lang] }}
+                        </button>
+                        <button
+                            @click="generatePassword"
+                            class="w-full bg-green-500 text-white font-bold py-3 px-4 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 dark:focus:ring-offset-gray-900 transition-transform transform hover:scale-105"
+                        >
+                            {{ texts.generateButton[lang] }}
+                        </button>
+                    </div>
 
-    <script>
-        const { createApp, ref, reactive, onMounted, computed } = Vue;
+                    <transition name="fade">
+                        <div
+                            v-if="feedback.show"
+                            :class="feedback.type === 'success' ? 'bg-green-100 dark:bg-green-900 border-green-500 text-green-800 dark:text-green-200' : 'bg-red-100 dark:bg-red-900 border-red-500 text-red-800 dark:text-red-200'"
+                            class="border-l-4 p-4 rounded-md"
+                        >
+                            <p class="font-bold mb-2">{{ feedback.title }}</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li v-for="message in feedback.messages">
+                                    {{ message }}
+                                </li>
+                            </ul>
+                        </div>
+                    </transition>
+                </div>
+            </main>
 
-        const app = createApp({
-            setup() {
-                const lang = ref('zh');
-                const langMenuOpen = ref(false);
-                const password = ref('');
-                const showPassword = ref(false);
-                const feedback = reactive({
-                    show: false,
-                    type: '', // 'success' or 'error'
-                    title: '',
-                    messages: []
-                });
+            <footer
+                class="text-center text-sm text-gray-500 dark:text-gray-400 mt-8"
+            >
+                <p>Check if your password could be used in MiOffice.</p>
+            </footer>
+        </div>
 
-                // 多语言文本
-                const texts = {
-                    title: { zh: '密码安全检查器', en: 'Password Security Checker', ru: 'Проверка безопасности пароля' },
-                    importantNotes: { zh: '重要提示', en: 'Important Notes', ru: 'Важные замечания' },
-                    placeholder: { zh: '请输入您的密码', en: 'Enter your password', ru: 'Введите ваш пароль' },
-                    checkButton: { zh: '检查密码', en: 'Check Password', ru: 'Проверить пароль' },
-                    generateButton: { zh: '生成安全密码', en: 'Generate Secure Password', ru: 'Создать безопасный пароль' },
-                    feedbackSuccessTitle: { zh: '✅ 密码符合要求', en: '✅ Password is secure', ru: '✅ Пароль безопасен' },
-                    feedbackErrorTitle: { zh: '❌ 密码不符合要求', en: '❌ Password is not secure', ru: '❌ Пароль не безопасен' },
-                    // ... 更多语言文本
-                };
+        <script>
+            const { createApp, ref, reactive, onMounted, computed } = Vue;
 
-                const dynamicTipsData = [
-                    { id: 1, text: { zh: '密码不能包含自己的用户名。', en: 'Password cannot contain your username.', ru: 'Пароль не может содержать ваше имя пользователя.' } },
-                    { id: 2, text: { zh: '新密码必须与前3次使用的旧密码不同。', en: 'New password must be different from the last 3 old passwords.', ru: 'Новый пароль должен отличаться от 3 последних старых паролей.' } }
-                ];
-
-                const dynamicTips = computed(() => dynamicTipsData);
-
-                const forbiddenKeywords = ['xiaomi', 'miui', 'mitalk', 'miliao', 'miphone'];
-
-                const toggleLangMenu = () => {
-                    langMenuOpen.value = !langMenuOpen.value;
-                };
-
-                const changeLang = (newLang) => {
-                    lang.value = newLang;
-                    langMenuOpen.value = false;
-                    document.documentElement.lang = newLang.startsWith('zh') ? 'zh-CN' : newLang;
-                    if (feedback.show) {
-                        validatePassword(); // Re-validate to update feedback language
-                    }
-                };
-
-                const togglePasswordVisibility = () => {
-                    showPassword.value = !showPassword.value;
-                };
-
-                const checkPassword = () => {
-                    if (feedback.show) {
-                        validatePassword();
-                    }
-                };
-
-                const validatePassword = () => {
-                    const pwd = password.value;
-                    const errors = [];
-                    const langCode = lang.value;
-
-                    // 规则1：长度及字符种类
-                    const hasUpperCase = /[A-Z]/.test(pwd);
-                    const hasLowerCase = /[a-z]/.test(pwd);
-                    const hasNumbers = /[0-9]/.test(pwd);
-                    const hasSymbols = /[^A-Za-z0-9]/.test(pwd);
-                    const charTypes = [hasUpperCase, hasLowerCase, hasNumbers, hasSymbols].filter(Boolean).length;
-
-                    if (pwd.length < 8) {
-                        errors.push({
-                            zh: '长度不足8位。',
-                            en: 'Must be at least 8 characters long.',
-                            ru: 'Длина должна быть не менее 8 символов.'
-                        }[langCode]);
-                    }
-                    if (charTypes < 3) {
-                        errors.push({
-                            zh: '至少需要包含大写字母、小写字母、数字、符号中的3种。',
-                            en: 'Must contain at least 3 of the following: uppercase letters, lowercase letters, numbers, and symbols.',
-                            ru: 'Должен содержать как минимум 3 из следующих типов символов: заглавные буквы, строчные буквы, цифры и символы.'
-                        }[langCode]);
-                    }
-
-                    // 规则2：禁止包含关键字
-                    const lowerCasePwd = pwd.toLowerCase();
-                    for (const keyword of forbiddenKeywords) {
-                        if (lowerCasePwd.includes(keyword)) {
-                            errors.push(`${({
-                                zh: '不能包含禁用关键字: ',
-                                en: 'Cannot contain the forbidden keyword: ',
-                                ru: 'Не может содержать запрещенное ключевое слово: '
-                            }[langCode])}"${keyword}"`);
-                            break;
-                        }
-                    }
-
-                    // 规则3：禁止连续键盘字符
-                    const keyboardPatterns = [
-                        'qwertyuiop', 'asdfghjkl', 'zxcvbnm',
-                        '1234567890', 'poiuytrewq', 'lkjhgfdsa', 'mnbvcxz'
-                    ];
-                    for (const pattern of keyboardPatterns) {
-                        for (let i = 0; i <= pattern.length - 4; i++) {
-                            const sub = pattern.substring(i, i + 4);
-                            if (lowerCasePwd.includes(sub)) {
-                                errors.push(`${({
-                                    zh: '不能包含连续的键盘字符: ',
-                                    en: 'Cannot contain sequential keyboard characters: ',
-                                    ru: 'Не может содержать последовательные символы клавиатуры: '
-                                }[langCode])}"${sub}"`);
-                            }
-                        }
-                    }
-
-                    feedback.show = true;
-                    if (errors.length > 0) {
-                        feedback.type = 'error';
-                        feedback.title = texts.feedbackErrorTitle[langCode];
-                        feedback.messages = errors;
-                    } else {
-                        feedback.type = 'success';
-                        feedback.title = texts.feedbackSuccessTitle[langCode];
-                        feedback.messages = [];
-                    }
-                };
-
-                const generatePassword = () => {
-                    const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    const lower = 'abcdefghijklmnopqrstuvwxyz';
-                    const numbers = '0123456789';
-
-                    const allChars = [upper, lower, numbers];
-                    let newPassword = '';
-
-                    // 确保至少包含三种字符
-                    let charSets = [...allChars].sort(() => 0.5 - Math.random()).slice(0, 3);
-
-                    charSets.forEach(set => {
-                        newPassword += set[Math.floor(Math.random() * set.length)];
+            const app = createApp({
+                setup() {
+                    const lang = ref("zh");
+                    const langMenuOpen = ref(false);
+                    const password = ref("");
+                    const showPassword = ref(false);
+                    const feedback = reactive({
+                        show: false,
+                        type: "", // 'success' or 'error'
+                        title: "",
+                        messages: [],
                     });
 
-                    const remainingLength = 12 - newPassword.length; // 生成一个12位的密码
-                    const combinedChars = charSets.join('');
+                    // 多语言文本
+                    const texts = {
+                        title: {
+                            zh: "密码安全检查器",
+                            en: "Password Security Checker",
+                            ru: "Проверка безопасности пароля",
+                        },
+                        importantNotes: {
+                            zh: "重要提示",
+                            en: "Important Notes",
+                            ru: "Важные замечания",
+                        },
+                        placeholder: {
+                            zh: "请输入您的密码",
+                            en: "Enter your password",
+                            ru: "Введите ваш пароль",
+                        },
+                        checkButton: {
+                            zh: "检查密码",
+                            en: "Check Password",
+                            ru: "Проверить пароль",
+                        },
+                        generateButton: {
+                            zh: "生成安全密码",
+                            en: "Generate Secure Password",
+                            ru: "Создать безопасный пароль",
+                        },
+                        feedbackSuccessTitle: {
+                            zh: "✅ 密码符合要求",
+                            en: "✅ Password is secure",
+                            ru: "✅ Пароль безопасен",
+                        },
+                        feedbackErrorTitle: {
+                            zh: "❌ 密码不符合要求",
+                            en: "❌ Password is not secure",
+                            ru: "❌ Пароль не безопасен",
+                        },
+                        // ... 更多语言文本
+                    };
 
-                    for (let i = 0; i < remainingLength; i++) {
-                        newPassword += combinedChars[Math.floor(Math.random() * combinedChars.length)];
-                    }
+                    const dynamicTipsData = [
+                        {
+                            id: 1,
+                            text: {
+                                zh: "密码不能包含自己的用户名。",
+                                en: "Password cannot contain your username.",
+                                ru: "Пароль не может содержать ваше имя пользователя.",
+                            },
+                        },
+                        {
+                            id: 2,
+                            text: {
+                                zh: "新密码必须与前3次使用的旧密码不同。",
+                                en: "New password must be different from the last 3 old passwords.",
+                                ru: "Новый пароль должен отличаться от 3 последних старых паролей.",
+                            },
+                        },
+                    ];
 
-                    // 打乱密码顺序
-                    newPassword = newPassword.split('').sort(() => 0.5 - Math.random()).join('');
+                    const dynamicTips = computed(() => dynamicTipsData);
 
-                    password.value = newPassword;
-                    validatePassword();
-                };
+                    const forbiddenKeywords = [
+                        "xiaomi",
+                        "miui",
+                        "mitalk",
+                        "miliao",
+                        "miphone",
+                    ];
 
-                onMounted(() => {
-                    const userLang = navigator.language || navigator.userLanguage;
-                    if (userLang.startsWith('en')) {
-                        changeLang('en');
-                    } else if (userLang.startsWith('ru')) {
-                        changeLang('ru');
-                    } else {
-                        changeLang('zh');
-                    }
-                });
+                    const toggleLangMenu = () => {
+                        langMenuOpen.value = !langMenuOpen.value;
+                    };
 
-                return {
-                    lang,
-                    langMenuOpen,
-                    password,
-                    showPassword,
-                    feedback,
-                    texts,
-                    dynamicTips,
-                    toggleLangMenu,
-                    changeLang,
-                    togglePasswordVisibility,
-                    validatePassword,
-                    generatePassword,
-                    checkPassword
-                };
-            }
-        });
+                    const changeLang = (newLang) => {
+                        lang.value = newLang;
+                        langMenuOpen.value = false;
+                        document.documentElement.lang = newLang.startsWith("zh")
+                            ? "zh-CN"
+                            : newLang;
+                        if (feedback.show) {
+                            validatePassword(); // Re-validate to update feedback language
+                        }
+                    };
 
-        app.mount('#app');
-    </script>
-</body>
+                    const togglePasswordVisibility = () => {
+                        showPassword.value = !showPassword.value;
+                    };
 
+                    const checkPassword = () => {
+                        if (feedback.show) {
+                            validatePassword();
+                        }
+                    };
+
+                    const validatePassword = () => {
+                        const pwd = password.value;
+                        const errors = [];
+                        const langCode = lang.value;
+
+                        // 规则1：长度及字符种类
+                        const hasUpperCase = /[A-Z]/.test(pwd);
+                        const hasLowerCase = /[a-z]/.test(pwd);
+                        const hasNumbers = /[0-9]/.test(pwd);
+                        const hasSymbols = /[^A-Za-z0-9]/.test(pwd);
+                        const charTypes = [
+                            hasUpperCase,
+                            hasLowerCase,
+                            hasNumbers,
+                            hasSymbols,
+                        ].filter(Boolean).length;
+
+                        if (pwd.length < 8) {
+                            errors.push(
+                                {
+                                    zh: "长度不足8位。",
+                                    en: "Must be at least 8 characters long.",
+                                    ru: "Длина должна быть не менее 8 символов.",
+                                }[langCode],
+                            );
+                        }
+                        if (charTypes < 3) {
+                            errors.push(
+                                {
+                                    zh: "至少需要包含大写字母、小写字母、数字、符号中的3种。",
+                                    en: "Must contain at least 3 of the following: uppercase letters, lowercase letters, numbers, and symbols.",
+                                    ru: "Должен содержать как минимум 3 из следующих типов символов: заглавные буквы, строчные буквы, цифры и символы.",
+                                }[langCode],
+                            );
+                        }
+
+                        // 规则2：禁止包含关键字
+                        const lowerCasePwd = pwd.toLowerCase();
+                        for (const keyword of forbiddenKeywords) {
+                            if (lowerCasePwd.includes(keyword)) {
+                                errors.push(
+                                    `${
+                                        {
+                                            zh: "不能包含禁用关键字: ",
+                                            en: "Cannot contain the forbidden keyword: ",
+                                            ru: "Не может содержать запрещенное ключевое слово: ",
+                                        }[langCode]
+                                    }"${keyword}"`,
+                                );
+                                break;
+                            }
+                        }
+
+                        // 规则3：禁止连续键盘字符
+                        const keyboardPatterns = [
+                            "qwertyuiop",
+                            "asdfghjkl",
+                            "zxcvbnm",
+                            "1234567890",
+                            "poiuytrewq",
+                            "lkjhgfdsa",
+                            "mnbvcxz",
+                        ];
+                        for (const pattern of keyboardPatterns) {
+                            for (let i = 0; i <= pattern.length - 4; i++) {
+                                const sub = pattern.substring(i, i + 4);
+                                if (lowerCasePwd.includes(sub)) {
+                                    errors.push(
+                                        `${
+                                            {
+                                                zh: "不能包含连续的键盘字符: ",
+                                                en: "Cannot contain sequential keyboard characters: ",
+                                                ru: "Не может содержать последовательные символы клавиатуры: ",
+                                            }[langCode]
+                                        }"${sub}"`,
+                                    );
+                                }
+                            }
+                        }
+
+                        feedback.show = true;
+                        if (errors.length > 0) {
+                            feedback.type = "error";
+                            feedback.title = texts.feedbackErrorTitle[langCode];
+                            feedback.messages = errors;
+                        } else {
+                            feedback.type = "success";
+                            feedback.title =
+                                texts.feedbackSuccessTitle[langCode];
+                            feedback.messages = [];
+                        }
+                    };
+
+                    const generatePassword = () => {
+                        const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        const lower = "abcdefghijklmnopqrstuvwxyz";
+                        const numbers = "0123456789";
+
+                        const allChars = [upper, lower, numbers];
+                        let newPassword = "";
+
+                        // 确保至少包含三种字符
+                        let charSets = [...allChars]
+                            .sort(() => 0.5 - Math.random())
+                            .slice(0, 3);
+
+                        charSets.forEach((set) => {
+                            newPassword +=
+                                set[Math.floor(Math.random() * set.length)];
+                        });
+
+                        const remainingLength = 12 - newPassword.length; // 生成一个12位的密码
+                        const combinedChars = charSets.join("");
+
+                        for (let i = 0; i < remainingLength; i++) {
+                            newPassword +=
+                                combinedChars[
+                                    Math.floor(
+                                        Math.random() * combinedChars.length,
+                                    )
+                                ];
+                        }
+
+                        // 打乱密码顺序
+                        newPassword = newPassword
+                            .split("")
+                            .sort(() => 0.5 - Math.random())
+                            .join("");
+
+                        password.value = newPassword;
+                        validatePassword();
+                    };
+
+                    onMounted(() => {
+                        const userLang =
+                            navigator.language || navigator.userLanguage;
+                        if (userLang.startsWith("en")) {
+                            changeLang("en");
+                        } else if (userLang.startsWith("ru")) {
+                            changeLang("ru");
+                        } else {
+                            changeLang("zh");
+                        }
+                    });
+
+                    return {
+                        lang,
+                        langMenuOpen,
+                        password,
+                        showPassword,
+                        feedback,
+                        texts,
+                        dynamicTips,
+                        toggleLangMenu,
+                        changeLang,
+                        togglePasswordVisibility,
+                        validatePassword,
+                        generatePassword,
+                        checkPassword,
+                    };
+                },
+            });
+
+            app.mount("#app");
+        </script>
+    </body>
 </html>

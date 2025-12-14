@@ -186,7 +186,7 @@
                 class="btn"
                 onclick="document.getElementById('fileInput').click()"
             >
-                📷 上传图片
+                📷 上传图片 / Upload
             </button>
             <button
                 class="btn secondary"
@@ -194,7 +194,7 @@
                 style="display: none"
                 onclick="flipHat()"
             >
-                ↔️ 镜像翻转
+                ↔️ 镜像翻转 / Filp Hat
             </button>
             <button
                 class="btn secondary"
@@ -202,7 +202,7 @@
                 style="display: none"
                 onclick="generateImage()"
             >
-                ⬇️ 合成下载
+                ⬇️ 合成下载 / Download
             </button>
             <input type="file" id="fileInput" accept="image/*" />
         </div>
@@ -221,11 +221,17 @@
 
         <p class="tips" id="tips">
             请先上传图片。<br />上传后，拖动帽子移动，拖动右下角手柄旋转/缩放。
+            <br />
+            Please upload the image first. <br />After uploading, drag the hat
+            to move it, and drag the handle in the bottom right corner to
+            rotate/scale it.
         </p>
 
-        <div id="downloadResult">
+        <div id="downloadResult" class="tips">
             <p>
-                🎉 生成成功！<br />电脑已自动下载，手机请<b>长按下方图片</b>保存：
+                请<b>长按下方图片</b>保存：
+                <br />
+                Long press the image below to save.
             </p>
             <img id="finalImg" alt="Result" />
         </div>
@@ -272,7 +278,7 @@
                         saveBtn.style.display = "inline-flex";
                         flipBtn.style.display = "inline-flex"; // 显示翻转按钮
                         tips.innerHTML =
-                            "👆 <b>拖动帽子</b>主体可移动位置。<br>🔄 <b>拖动右下角手柄</b>可旋转和缩放。";
+                            "👆 <b>拖动帽子</b>主体可移动位置。<b>Drag the hat</b> to move its position.<br>🔄 <b>拖动右下角手柄</b>可旋转和缩放。<b>Drag the bottom right handle</b> to rotate and scale.";
                         downloadResult.style.display = "none";
                         resetHatPosition();
                     };
@@ -296,10 +302,6 @@
             function flipHat() {
                 state.currentFlip = state.currentFlip === 1 ? -1 : 1;
                 updateTransform();
-                tips.innerText =
-                    state.currentFlip === -1
-                        ? "✅ 已镜像翻转。"
-                        : "✅ 已恢复正常方向。";
             }
 
             // 更新 CSS transform

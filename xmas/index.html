@@ -6,7 +6,7 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
-        <title>圣诞帽头像生成器 Pro</title>
+        <title>圣诞帽头像生成器</title>
         <style>
             :root {
                 --primary-color: #d42f2f;
@@ -42,9 +42,10 @@
                 text-align: center;
             }
 
+            /* 控制按钮区域 */
             .controls {
                 width: 100%;
-                max-width: 500px;
+                max-width: 600px;
                 display: flex;
                 gap: 10px;
                 justify-content: center;
@@ -55,7 +56,7 @@
                 background-color: var(--primary-color);
                 color: white;
                 border: none;
-                padding: 10px 20px;
+                padding: 10px 15px;
                 border-radius: 25px;
                 font-size: 14px;
                 cursor: pointer;
@@ -65,6 +66,7 @@
                 align-items: center;
                 text-decoration: none;
                 user-select: none;
+                white-space: nowrap; /* 防止按钮文字换行 */
             }
             .btn:active {
                 transform: translateY(1px);
@@ -79,6 +81,7 @@
                 display: none;
             }
 
+            /* 工作区 */
             #workspace {
                 position: relative;
                 margin: 10px auto;
@@ -99,6 +102,7 @@
                 pointer-events: none;
             }
 
+            /* 圣诞帽容器及手柄样式 */
             #hat-container {
                 position: absolute;
                 top: 10%;
@@ -107,6 +111,7 @@
                 z-index: 10;
                 cursor: move;
                 cursor: grab;
+                /* transform-origin: center center 是关键 */
                 transform-origin: center center;
             }
             #hat-container:active {
@@ -135,6 +140,7 @@
                 justify-content: center;
                 font-size: 14px;
                 color: var(--handle-border);
+                user-select: none;
             }
             #handle-rotate-scale {
                 bottom: -12px;
@@ -173,7 +179,7 @@
         </style>
     </head>
     <body>
-        <h1>🎅 圣诞帽生成器 Pro</h1>
+        <h1>🎅 圣诞帽生成器</h1>
 
         <div class="controls">
             <button
@@ -181,6 +187,14 @@
                 onclick="document.getElementById('fileInput').click()"
             >
                 📷 上传图片
+            </button>
+            <button
+                class="btn secondary"
+                id="flipBtn"
+                style="display: none"
+                onclick="flipHat()"
+            >
+                ↔️ 镜像翻转
             </button>
             <button
                 class="btn secondary"
@@ -223,6 +237,7 @@
             const hatContainer = document.getElementById("hat-container");
             const handleRS = document.getElementById("handle-rotate-scale");
             const saveBtn = document.getElementById("saveBtn");
+            const flipBtn = document.getElementById("flipBtn"); // 新增按钮引用
             const tips = document.getElementById("tips");
             const downloadResult = document.getElementById("downloadResult");
             const finalImg = document.getElementById("finalImg");
@@ -238,12 +253,14 @@
                 centerPos: { x: 0, y: 0 },
                 startAngle: 0,
                 startDistance: 0,
-                currentRotation: 0, // 修正处：去掉了空格
-                currentScale: 1,
+                currentRotation: 0,
+                currentScale: 1, // 当前主缩放比例 (用于旋转/缩放)
+                currentFlip: 1, // 新增：X轴镜像翻转状态 (1 或 -1)
                 baseScale: 1,
                 baseRotation: 0,
             };
 
+            // 1. 图片上传处理
             fileInput.addEventListener("change", function (e) {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -253,6 +270,7 @@
                     userImg.onload = () => {
                         workspace.style.display = "inline-block";
                         saveBtn.style.display = "inline-flex";
+                        flipBtn.style.display = "inline-flex"; // 显示翻转按钮
                         tips.innerHTML =
                             "👆 <b>拖动帽子</b>主体可移动位置。<br>🔄 <b>拖动右下角手柄</b>可旋转和缩放。";
                         downloadResult.style.display = "none";
@@ -270,11 +288,24 @@
                 hatContainer.style.top = "10%";
                 state.currentRotation = 0;
                 state.currentScale = 1;
+                state.currentFlip = 1; // 重置翻转状态
                 updateTransform();
             }
 
+            // 镜像翻转功能
+            function flipHat() {
+                state.currentFlip = state.currentFlip === 1 ? -1 : 1;
+                updateTransform();
+                tips.innerText =
+                    state.currentFlip === -1
+                        ? "✅ 已镜像翻转。"
+                        : "✅ 已恢复正常方向。";
+            }
+
+            // 更新 CSS transform
             function updateTransform() {
-                hatContainer.style.transform = `rotateZ(${state.currentRotation}rad) scale(${state.currentScale})`;
+                // 结合了旋转、主缩放、和镜像翻转 (state.currentFlip 作用于 X 轴)
+                hatContainer.style.transform = `rotateZ(${state.currentRotation}rad) scale(${state.currentScale * state.currentFlip}, ${state.currentScale})`;
             }
 
             function getClientCoords(e) {
@@ -294,6 +325,7 @@
                 return Math.atan2(p2.y - p1.y, p2.x - p1.x);
             }
 
+            // 2. 交互事件处理 (拖拽、旋转、缩放)
             function startInteraction(e) {
                 e.preventDefault();
                 const coords = getClientCoords(e);
@@ -342,6 +374,7 @@
                     state.currentRotation = state.baseRotation + angleDiff;
 
                     const scaleRatio = currentDistance / state.startDistance;
+                    // 确保缩放比例最小为 0.3
                     state.currentScale = Math.max(
                         0.3,
                         state.baseScale * scaleRatio,
@@ -371,6 +404,7 @@
             document.addEventListener("mouseup", endInteraction);
             document.addEventListener("touchend", endInteraction);
 
+            // 3. 图片合成与下载
             function generateImage() {
                 if (!userImg.src) return;
 
@@ -394,8 +428,10 @@
 
                     ctx.drawImage(userImg, 0, 0);
 
+                    // 计算显示比例 (用于将DOM坐标映射到Canvas原始分辨率)
                     const displayScale = naturalW / userImg.offsetWidth;
 
+                    // 获取帽子的中心点 (Canvas坐标)
                     const containerLeft = parseFloat(
                         hatContainer.style.left ||
                             window.getComputedStyle(hatContainer).left,
@@ -419,11 +455,20 @@
                     const canvasBaseWidth = containerBaseWidth * displayScale;
                     const canvasBaseHeight = containerBaseHeight * displayScale;
 
+                    // C. 在 Canvas 上绘制帽子
                     ctx.save();
-                    ctx.translate(canvasCenterX, canvasCenterY);
-                    ctx.rotate(state.currentRotation);
-                    ctx.scale(state.currentScale, state.currentScale);
 
+                    // 1. 平移到中心点
+                    ctx.translate(canvasCenterX, canvasCenterY);
+                    // 2. 旋转坐标系
+                    ctx.rotate(state.currentRotation);
+                    // 3. 缩放坐标系 (X轴缩放 = currentScale * currentFlip; Y轴缩放 = currentScale)
+                    ctx.scale(
+                        state.currentScale * state.currentFlip,
+                        state.currentScale,
+                    );
+
+                    // 4. 绘制图片（因为原点在中心，所以从 (-w/2, -h/2) 开始画）
                     const hatSvg = document.getElementById("hat-img");
                     ctx.drawImage(
                         hatSvg,
@@ -452,14 +497,14 @@
                         downloadResult.scrollIntoView({ behavior: "smooth" });
                     } else {
                         const link = document.createElement("a");
-                        link.download = "christmas-avatar-pro.png";
+                        link.download = "christmas-avatar-ultra.png";
                         link.href = dataURL;
                         document.body.appendChild(link);
                         link.click();
                         document.body.removeChild(link);
                     }
                 } catch (err) {
-                    alert("生成失败，可能是图片跨域或内存不足。");
+                    alert("生成失败，请重试。");
                     console.error(err);
                 }
             }
